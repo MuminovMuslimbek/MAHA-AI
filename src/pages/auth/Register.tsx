@@ -65,16 +65,16 @@ const Register: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 py-12 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-100 via-purple-50 to-pink-100 animate-gradient-x">
-      <div className="w-full max-w-md animate-fade-in">
+    <div className="min-h-screen flex items-center justify-center px-4 py-12 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-100 via-purple-50 to-pink-100">
+      <div className="w-full max-w-md">
         <Card className="w-full backdrop-blur-sm bg-white/90 border-0 shadow-2xl transform hover:scale-102 transition-all duration-500">
           <CardHeader className="space-y-3 text-center">
             <div className="flex justify-center">
               <div className="relative">
-                <div className="h-20 w-20 rounded-full bg-gradient-to-br from-blue-500 via-quiz-purple to-pink-600 flex items-center justify-center shadow-2xl animate-glow">
-                  <Book className="h-10 w-10 text-white animate-pulse" />
+                <div className="h-20 w-20 rounded-full bg-gradient-to-br from-blue-500 via-quiz-purple to-pink-600 flex items-center justify-center shadow-2xl ">
+                  <Book className="h-10 w-10 text-white " />
                 </div>
-                <div className="absolute -top-2 -right-2 text-2xl animate-bounce">🌟</div>
+                <div className="absolute -top-2 -right-2 text-2xl ">🌟</div>
               </div>
             </div>
             <CardTitle className="text-center text-3xl font-bold bg-gradient-to-r from-blue-500 via-quiz-purple to-pink-600 bg-clip-text text-transparent">
@@ -88,7 +88,7 @@ const Register: React.FC = () => {
           <form onSubmit={handleSubmit}>
             <CardContent className="space-y-4">
               {error && (
-                <div className="rounded-xl bg-gradient-to-r from-red-100 to-pink-100 border border-red-200 p-4 text-sm text-red-700 animate-wiggle">
+                <div className="rounded-xl bg-gradient-to-r from-red-100 to-pink-100 border border-red-200 p-4 text-sm text-red-700 ">
                   <span className="mr-2">⚠️</span>
                   {error}
                 </div>
@@ -161,11 +161,11 @@ const Register: React.FC = () => {
               >
                 {isLoading ? (
                   <span className="flex items-center gap-2">
-                    <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <svg className=" h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
-                    <span className="animate-pulse">Creating account...</span>
+                    <span>Creating account...</span>
                     <span className="text-xl">⏳</span>
                   </span>
                 ) : (
@@ -173,7 +173,7 @@ const Register: React.FC = () => {
                     <UserPlus className="h-5 w-5" /> 
                     <span className="mr-2">🚀</span>
                     Create account
-                    <Sparkles className="h-4 w-4 animate-pulse" />
+                    <Sparkles className="h-4 w-4 " />
                   </span>
                 )}
               </Button>

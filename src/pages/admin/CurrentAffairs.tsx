@@ -109,7 +109,7 @@ const AdminCurrentAffairs: React.FC = () => {
         <CardContent className="px-2 sm:px-5">
           {isLoading ? (
             <div className="flex justify-center py-8">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-teal-600"></div>
+              <div className="rounded-full h-8 w-8 border-b-2 border-teal-600"></div>
             </div>
           ) : filteredAffairs.length === 0 ? (
             <p className="text-center py-4 text-muted-foreground">No current affairs have been added yet.</p>

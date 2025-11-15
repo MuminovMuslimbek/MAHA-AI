@@ -39,10 +39,10 @@ const Quizzes: React.FC = () => {
 
   return (
     <MainLayout>
-      <div className="mb-6 animate-fade-in">
+      <div className="mb-6 ">
         <div className="bg-gradient-to-br from-purple-600 via-indigo-600 to-blue-700 rounded-2xl p-6 shadow-2xl transform hover:scale-102 transition-all duration-500">
           <div className="flex items-center gap-3 mb-3">
-            <div className="text-4xl animate-bounce">🧠</div>
+            <div className="text-4xl ">🧠</div>
             <h1 className="text-2xl md:text-3xl font-bold text-white">All Quizzes ⚡</h1>
           </div>
           <p className="text-white/90 text-sm md:text-base flex items-center">
@@ -53,10 +53,10 @@ const Quizzes: React.FC = () => {
       </div>
 
       {/* New Class Selection CTA with Enhanced Design */}
-      <div className="bg-gradient-to-br from-pink-500 via-rose-500 to-orange-600 rounded-2xl p-5 text-white mb-6 shadow-2xl animate-fade-in transform hover:scale-102 transition-all duration-500">
+      <div className="bg-gradient-to-br from-pink-500 via-rose-500 to-orange-600 rounded-2xl p-5 text-white mb-6 shadow-2xl  transform hover:scale-102 transition-all duration-500">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between">
           <div className="flex items-start gap-3">
-            <div className="text-3xl animate-bounce">📚</div>
+            <div className="text-3xl ">📚</div>
             <div>
               <h3 className="font-bold text-lg mb-2 flex items-center">
                 Browse by Class & Subject ✨
@@ -82,7 +82,7 @@ const Quizzes: React.FC = () => {
         </div>
       </div>
 
-      <div className="relative mb-6 max-w-md mx-auto animate-fade-in">
+      <div className="relative mb-6 max-w-md mx-auto ">
         <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
         <Input
           placeholder="🔍 Search quizzes by title, description or category"
@@ -92,7 +92,7 @@ const Quizzes: React.FC = () => {
         />
       </div>
       
-      <div className="bg-white rounded-2xl p-4 shadow-2xl animate-fade-in transform hover:scale-102 transition-all duration-500">
+      <div className="bg-white rounded-2xl p-4 shadow-2xl  transform hover:scale-102 transition-all duration-500">
         <Tabs defaultValue="all">
           <TabsList className="w-full grid grid-cols-3 mb-6 bg-gradient-to-r from-purple-100 to-indigo-100 rounded-xl">
             <TabsTrigger 
@@ -124,11 +124,11 @@ const Quizzes: React.FC = () => {
           <TabsContent value="all" className="pt-2">
             {isLoading ? (
               <div className="bg-gradient-to-br from-slate-50 to-gray-100 rounded-2xl p-8 text-center">
-                <div className="text-6xl mb-4 animate-spin">⏳</div>
+                <div className="text-6xl mb-4">⏳</div>
                 <p className="text-slate-500 font-medium">Loading quizzes...</p>
               </div>
             ) : filteredQuizzes.length === 0 ? (
-              <div className="bg-gradient-to-br from-slate-50 to-gray-100 rounded-2xl p-8 text-center animate-bounce">
+              <div className="bg-gradient-to-br from-slate-50 to-gray-100 rounded-2xl p-8 text-center ">
                 <div className="text-6xl mb-4">📚</div>
                 <BookOpen className="h-12 w-12 mx-auto text-slate-400 mb-3" />
                 <p className="text-slate-500 font-medium">No quizzes found! 🔍</p>
@@ -136,7 +136,7 @@ const Quizzes: React.FC = () => {
             ) : (
               <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
                 {filteredQuizzes.map((quiz, index) => (
-                  <div key={quiz.id} className="animate-fade-in" style={{ animationDelay: `${index * 50}ms` }}>
+                  <div key={quiz.id}>
                     <QuizCard 
                       quiz={quiz} 
                       linkTo={`/quizzes/${quiz.id}`}
@@ -150,7 +150,7 @@ const Quizzes: React.FC = () => {
           
           <TabsContent value="available" className="pt-2">
             {availableQuizzes.length === 0 ? (
-              <div className="bg-gradient-to-br from-blue-50 to-cyan-100 rounded-2xl p-8 text-center animate-bounce">
+              <div className="bg-gradient-to-br from-blue-50 to-cyan-100 rounded-2xl p-8 text-center ">
                 <div className="text-6xl mb-4">⏰</div>
                 <Clock className="h-12 w-12 mx-auto text-blue-400 mb-3" />
                 <p className="text-blue-500 font-medium">No available quizzes found! 🎯</p>
@@ -158,7 +158,7 @@ const Quizzes: React.FC = () => {
             ) : (
               <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
                 {availableQuizzes.map((quiz, index) => (
-                  <div key={quiz.id} className="animate-fade-in" style={{ animationDelay: `${index * 50}ms` }}>
+                  <div key={quiz.id} style={{ animationDelay: `${index * 50}ms` }}>
                     <QuizCard 
                       quiz={quiz} 
                       linkTo={`/quizzes/${quiz.id}`} 
@@ -171,7 +171,7 @@ const Quizzes: React.FC = () => {
           
           <TabsContent value="completed" className="pt-2">
             {completedQuizzes.length === 0 ? (
-              <div className="bg-gradient-to-br from-green-50 to-emerald-100 rounded-2xl p-8 text-center animate-bounce">
+              <div className="bg-gradient-to-br from-green-50 to-emerald-100 rounded-2xl p-8 text-center ">
                 <div className="text-6xl mb-4">🏆</div>
                 <CheckCircle className="h-12 w-12 mx-auto text-green-400 mb-3" />
                 <p className="text-green-500 font-medium">No completed quizzes yet! Start your first quiz ✨</p>
@@ -179,7 +179,7 @@ const Quizzes: React.FC = () => {
             ) : (
               <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
                 {completedQuizzes.map((quiz, index) => (
-                  <div key={quiz.id} className="animate-fade-in" style={{ animationDelay: `${index * 50}ms` }}>
+                  <div key={quiz.id} className="" style={{ animationDelay: `${index * 50}ms` }}>
                     <QuizCard 
                       quiz={quiz} 
                       linkTo={`/quiz-results/${quiz.id}`} 
