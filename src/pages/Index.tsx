@@ -8,12 +8,14 @@ import { Book, User, FileText, Calendar, Brain, Award, CheckCircle, Sparkles, St
 import { motion } from 'framer-motion';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import PageLayout from '@/components/common/PageLayout';
+import { useTelegram } from '@/contexts/TelegramContext';
 
 const Index = () => {
   const { user } = useAuth();
   const { isAdmin } = useUserRole();
   const navigate = useNavigate();
-  
+  const { usern } = useTelegram();
+
   // If authenticated, redirect to appropriate dashboard
   React.useEffect(() => {
     if (user) {
@@ -35,7 +37,7 @@ const Index = () => {
       }
     }
   };
-  
+
   const itemVariants = {
     hidden: { y: 20, opacity: 0 },
     visible: {
@@ -92,10 +94,10 @@ const Index = () => {
             </span>
           </div>
           <div className="flex gap-1 sm:gap-2">
-            <Button 
-              variant="gradient" 
-              size="sm" 
-              onClick={() => navigate('/login')} 
+            <Button
+              variant="gradient"
+              size="sm"
+              onClick={() => navigate('/login')}
               className="text-white text-xs sm:text-sm px-2 sm:px-3"
             >
               Login
@@ -109,7 +111,7 @@ const Index = () => {
 
       <main className="flex-1 overflow-auto">
         {/* Hero Section - Mobile Optimized */}
-        <motion.section 
+        <motion.section
           initial="hidden"
           animate="visible"
           variants={containerVariants}
@@ -128,6 +130,32 @@ const Index = () => {
             <motion.p variants={itemVariants} className="text-sm sm:text-md mb-6 sm:mb-8 text-purple-100 px-2">
               An interactive platform for students to test their knowledge, stay updated with current affairs, and prepare for exams.
             </motion.p>
+            <div style={{ padding: "20px" }}>
+              <h1>Quiz App</h1>
+
+              {usern ? (
+                <div>
+                  <img
+                    src={usern.photo_url}
+                    alt="avatar"
+                    style={{
+                      width: "120px",
+                      height: "120px",
+                      borderRadius: "50%",
+                      marginBottom: "10px"
+                    }}
+                  />
+
+                  <h2>
+                    {usern.first_name} {usern.last_name}
+                  </h2>
+
+                  {usern.username && <p>@{usern.username}</p>}
+                </div>
+              ) : (
+                <p>Loading user...</p>
+              )}
+            </div>
             <motion.div variants={itemVariants} className="flex flex-col sm:flex-row justify-center gap-2 sm:gap-3 px-4">
               <Button size="lg" className="bg-yellow-500 text-purple-900 hover:bg-yellow-400 w-full sm:w-auto" onClick={() => navigate('/register')}>
                 Get Started
@@ -140,7 +168,7 @@ const Index = () => {
         </motion.section>
 
         {/* What You'll Get Section - Mobile Grid */}
-        <motion.section 
+        <motion.section
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
@@ -148,7 +176,7 @@ const Index = () => {
         >
           <h2 className="text-xl sm:text-2xl font-bold text-center mb-2 text-purple-800">What You'll Get</h2>
           <p className="text-center text-gray-600 mb-4 sm:mb-6 text-sm sm:text-base">Everything you need to excel in your studies</p>
-          
+
           <div className="grid grid-cols-2 gap-3 sm:gap-4 max-w-md sm:max-w-none mx-auto">
             <div onClick={() => navigate('/login')} className="bg-white p-3 sm:p-4 rounded-xl shadow-md border border-purple-100 flex flex-col items-center hover:shadow-lg transition-all cursor-pointer">
               <div className="bg-indigo-100 p-2 sm:p-3 rounded-full mb-2 sm:mb-3">
@@ -156,21 +184,21 @@ const Index = () => {
               </div>
               <h3 className="font-medium text-purple-800 text-xs sm:text-sm text-center">Interactive Quizzes</h3>
             </div>
-            
+
             <div onClick={() => navigate('/login')} className="bg-white p-3 sm:p-4 rounded-xl shadow-md border border-purple-100 flex flex-col items-center hover:shadow-lg transition-all cursor-pointer">
               <div className="bg-pink-100 p-2 sm:p-3 rounded-full mb-2 sm:mb-3">
                 <Lightbulb className="h-4 w-4 sm:h-6 sm:w-6 text-pink-600" />
               </div>
               <h3 className="font-medium text-purple-800 text-xs sm:text-sm text-center">Current Affairs</h3>
             </div>
-            
+
             <div onClick={() => navigate('/login')} className="bg-white p-3 sm:p-4 rounded-xl shadow-md border border-purple-100 flex flex-col items-center hover:shadow-lg transition-all cursor-pointer">
               <div className="bg-amber-100 p-2 sm:p-3 rounded-full mb-2 sm:mb-3">
                 <Calendar className="h-4 w-4 sm:h-6 sm:w-6 text-amber-600" />
               </div>
               <h3 className="font-medium text-purple-800 text-xs sm:text-sm text-center">Scheduled Exams</h3>
             </div>
-            
+
             <div onClick={() => navigate('/login')} className="bg-white p-3 sm:p-4 rounded-xl shadow-md border border-purple-100 flex flex-col items-center hover:shadow-lg transition-all cursor-pointer">
               <div className="bg-green-100 p-2 sm:p-3 rounded-full mb-2 sm:mb-3">
                 <Trophy className="h-4 w-4 sm:h-6 sm:w-6 text-green-600" />
@@ -193,7 +221,7 @@ const Index = () => {
                 <p className="text-gray-600 text-xs sm:text-sm">Create your free account to get started with QuizMaster.</p>
               </div>
             </div>
-            
+
             <div className="flex items-start gap-3 sm:gap-4">
               <div className="bg-purple-600 rounded-full w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center flex-shrink-0 mt-1">
                 <span className="text-white font-bold text-xs sm:text-sm">2</span>
@@ -203,7 +231,7 @@ const Index = () => {
                 <p className="text-gray-600 text-xs sm:text-sm">Select from various subjects based on your class and interests.</p>
               </div>
             </div>
-            
+
             <div className="flex items-start gap-3 sm:gap-4">
               <div className="bg-purple-600 rounded-full w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center flex-shrink-0 mt-1">
                 <span className="text-white font-bold text-xs sm:text-sm">3</span>
@@ -213,7 +241,7 @@ const Index = () => {
                 <p className="text-gray-600 text-xs sm:text-sm">Test your knowledge with interactive quizzes and timed exams.</p>
               </div>
             </div>
-            
+
             <div className="flex items-start gap-3 sm:gap-4">
               <div className="bg-purple-600 rounded-full w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center flex-shrink-0 mt-1">
                 <span className="text-white font-bold text-xs sm:text-sm">4</span>
@@ -229,9 +257,9 @@ const Index = () => {
         {/* Features Carousel - Mobile Optimized */}
         <section className="py-6 sm:py-8 px-3 sm:px-4">
           <h2 className="text-xl sm:text-2xl font-bold text-center mb-6 sm:mb-8 text-purple-800">Key Features</h2>
-          
+
           <Carousel
-            opts={{ 
+            opts={{
               align: "start",
               loop: true
             }}

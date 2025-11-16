@@ -44,101 +44,125 @@ import StudentManagement from "./pages/admin/StudentManagement";
 import NotFound from "./pages/NotFound";
 import Index from "./pages/Index";
 import Onboarding from "./components/student/Onboarding";
+import { useEffect } from "react";
+import { TelegramProvider } from "./contexts/TelegramContext";
 
 const queryClient = new QueryClient();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <AuthProvider>
-        <AppProvider>
-          <BrowserRouter>
-          <Routes>
-            {/* Public Routes */}
-            <Route path="/" element={<Index />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/onboarding" element={<Onboarding />} />
+const App = () => {
+  // 🔥 1-useEffect
+  useEffect(() => {
+    if (window.Telegram?.WebApp) {
+      const tg = window.Telegram.WebApp;
+      tg.ready();
+      tg.expand();
+      console.log("Telegram initDataUnsafe:", tg.initDataUnsafe);
+    }
+  }, []);
 
-            {/* Student Routes */}
-            <Route element={<ProtectedRoute allowedRoles={['student']} />}>
-              <Route path="/dashboard" element={<Dashboard />} />
-              
-              {/* New Quiz Flow - subjects now auto-start quizzes */}
-              <Route path="/classes" element={<ClassList />} />
-              <Route path="/subjects/:classId" element={<SubjectList />} />
-              <Route path="/subject/:subjectId/quizzes" element={<SubjectQuizzes />} />
-              
-              {/* Original Quiz Routes */}
-              <Route path="/quizzes" element={<Quizzes />} />
-              <Route path="/quizzes/:id" element={<QuizAttempt />} />
-              
-              {/* Exam Routes */}
-              <Route path="/exams" element={<Exams />} />
-              <Route path="/exam-attempt/:id" element={<ExamAttempt />} />
-              
-              {/* Battle Mode */}
-              <Route path="/battle" element={<BattleMode />} />
-              
-              <Route path="/current-affairs" element={<CurrentAffairs />} />
-              <Route path="/current-affairs/:id" element={<Navigate to="/current-affairs" />} />
-              
-              {/* Student Profile */}
-              <Route path="/profile" element={<Profile />} />
-            </Route>
+  // 🔥 2-useEffect
+  useEffect(() => {
+    const user = window.Telegram?.WebApp?.initDataUnsafe?.user;
+    if (user) {
+      localStorage.setItem("tg_user", JSON.stringify(user));
+    }
+  }, []);
 
-            {/* Admin Routes */}
-            <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
-              <Route path="/admin/dashboard" element={<AdminDashboard />} />
-              
-              {/* Class & Subject Management */}
-              <Route path="/admin/classes" element={<ClassManagement />} />
-              <Route path="/admin/subjects" element={<SubjectManagement />} />
-              
-              {/* Quiz Management */}
-              <Route path="/admin/quizzes" element={<AdminQuizzes />} />
-              <Route path="/admin/quizzes/new" element={<QuizForm />} />
-              <Route path="/admin/quizzes/edit/:id" element={<QuizForm />} />
-              <Route path="/admin/quizzes/import" element={<QuizImport />} />
-              
-              {/* Token Management */}
-              <Route path="/admin/tokens" element={<TokenRecharge />} />
-              
-              {/* Advertisement Management */}
-              <Route path="/admin/advertisements" element={<AdvertisementManagement />} />
-              
-              {/* Current Affairs Routes */}
-              <Route path="/admin/current-affairs" element={<AdminCurrentAffairs />} />
-              <Route path="/admin/current-affairs/new" element={<AdminCurrentAffairForm />} />
-              <Route path="/admin/current-affairs/:id" element={<AdminCurrentAffairForm />} />
-              
-              {/* Exam Management */}
-              <Route path="/admin/exams" element={<AdminUpcomingExams />} />
-              <Route path="/admin/exams/new" element={<ExamForm />} />
-              <Route path="/admin/exams/:id" element={<ExamForm />} />
-              
-              {/* Student Management */}
-              <Route path="/admin/students" element={<StudentManagement />} />
-              
-              {/* Other Admin Routes */}
-              <Route path="/admin/quizzes" element={<AdminDashboard />} />
-              <Route path="/admin/quizzes/new" element={<AdminDashboard />} />
-              <Route path="/admin/profile" element={<AdminDashboard />} />
-            </Route>
+  return (
+    <QueryClientProvider client={queryClient}>
+      <TelegramProvider>
+        <TooltipProvider>
+          <AuthProvider>
+            <AppProvider>
+              <BrowserRouter>
+                <Routes>
+                  {/* Public Routes */}
+                  <Route path="/" element={<Index />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/register" element={<Register />} />
+                  <Route path="/onboarding" element={<Onboarding />} />
 
-            {/* Redirect root admin path to admin dashboard */}
-            <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} />
-            
-            {/* Fallback Routes */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-          <Toaster />
-          <Sonner />
-          </BrowserRouter>
-        </AppProvider>
-      </AuthProvider>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+                  {/* Student Routes */}
+                  <Route element={<ProtectedRoute allowedRoles={['student']} />}>
+                    <Route path="/dashboard" element={<Dashboard />} />
+
+                    {/* New Quiz Flow - subjects now auto-start quizzes */}
+                    <Route path="/classes" element={<ClassList />} />
+                    <Route path="/subjects/:classId" element={<SubjectList />} />
+                    <Route path="/subject/:subjectId/quizzes" element={<SubjectQuizzes />} />
+
+                    {/* Original Quiz Routes */}
+                    <Route path="/quizzes" element={<Quizzes />} />
+                    <Route path="/quizzes/:id" element={<QuizAttempt />} />
+
+                    {/* Exam Routes */}
+                    <Route path="/exams" element={<Exams />} />
+                    <Route path="/exam-attempt/:id" element={<ExamAttempt />} />
+
+                    {/* Battle Mode */}
+                    <Route path="/battle" element={<BattleMode />} />
+
+                    <Route path="/current-affairs" element={<CurrentAffairs />} />
+                    <Route path="/current-affairs/:id" element={<Navigate to="/current-affairs" />} />
+
+                    {/* Student Profile */}
+                    <Route path="/profile" element={<Profile />} />
+                  </Route>
+
+                  {/* Admin Routes */}
+                  <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
+                    <Route path="/admin/dashboard" element={<AdminDashboard />} />
+
+                    {/* Class & Subject Management */}
+                    <Route path="/admin/classes" element={<ClassManagement />} />
+                    <Route path="/admin/subjects" element={<SubjectManagement />} />
+
+                    {/* Quiz Management */}
+                    <Route path="/admin/quizzes" element={<AdminQuizzes />} />
+                    <Route path="/admin/quizzes/new" element={<QuizForm />} />
+                    <Route path="/admin/quizzes/edit/:id" element={<QuizForm />} />
+                    <Route path="/admin/quizzes/import" element={<QuizImport />} />
+
+                    {/* Token Management */}
+                    <Route path="/admin/tokens" element={<TokenRecharge />} />
+
+                    {/* Advertisement Management */}
+                    <Route path="/admin/advertisements" element={<AdvertisementManagement />} />
+
+                    {/* Current Affairs Routes */}
+                    <Route path="/admin/current-affairs" element={<AdminCurrentAffairs />} />
+                    <Route path="/admin/current-affairs/new" element={<AdminCurrentAffairForm />} />
+                    <Route path="/admin/current-affairs/:id" element={<AdminCurrentAffairForm />} />
+
+                    {/* Exam Management */}
+                    <Route path="/admin/exams" element={<AdminUpcomingExams />} />
+                    <Route path="/admin/exams/new" element={<ExamForm />} />
+                    <Route path="/admin/exams/:id" element={<ExamForm />} />
+
+                    {/* Student Management */}
+                    <Route path="/admin/students" element={<StudentManagement />} />
+
+                    {/* Other Admin Routes */}
+                    <Route path="/admin/quizzes" element={<AdminDashboard />} />
+                    <Route path="/admin/quizzes/new" element={<AdminDashboard />} />
+                    <Route path="/admin/profile" element={<AdminDashboard />} />
+                  </Route>
+
+                  {/* Redirect root admin path to admin dashboard */}
+                  <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} />
+
+                  {/* Fallback Routes */}
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+                <Toaster />
+                <Sonner />
+              </BrowserRouter>
+            </AppProvider>
+          </AuthProvider>
+        </TooltipProvider>
+      </TelegramProvider>
+    </QueryClientProvider>
+  );
+}
 
 export default App;
